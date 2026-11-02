@@ -3,7 +3,11 @@
   "name": "Hexodus",
   "tagline": "Clear every ray.",
   "description": "A hexagonal escape puzzle: each tile carries an arrow, and it can only leave when every hex along that ray is empty. One hundred solver-verified Journey boards across eight chapters introduce keys, frost and rotating arrows, alongside a shared daily challenge, endless Zen and Classic stages. Every board is generated from a seed and checked solvable before it ships.",
-  "categories": ["Puzzle", "Logic", "Brain Training"],
+  "categories": [
+    "Puzzle",
+    "Logic",
+    "Brain Training"
+  ],
   "runtime": "Phaser 4",
   "version": "0.1.0",
   "updated": "2026-11-02",
@@ -14,8 +18,33 @@
   "siteUrl": "https://jd4rider.github.io/hexodus/",
   "repoUrl": "https://github.com/jd4rider/hexodus",
   "releasesUrl": "https://github.com/jd4rider/hexodus/releases",
-  "downloads": [],
-  "cover": { "from": "#a78bfa", "to": "#312e81", "emoji": "⬡" },
+  "downloads": [
+    {
+      "label": "macOS (Apple Silicon)",
+      "platform": "macOS",
+      "url": "https://github.com/jd4rider/hexodus/releases/download/v0.1.0/Hexodus-mac-arm64.dmg"
+    },
+    {
+      "label": "macOS (Intel)",
+      "platform": "macOS",
+      "url": "https://github.com/jd4rider/hexodus/releases/download/v0.1.0/Hexodus-mac-x64.dmg"
+    },
+    {
+      "label": "Windows installer",
+      "platform": "Windows",
+      "url": "https://github.com/jd4rider/hexodus/releases/download/v0.1.0/Hexodus-win-setup.exe"
+    },
+    {
+      "label": "Linux AppImage",
+      "platform": "Linux",
+      "url": "https://github.com/jd4rider/hexodus/releases/download/v0.1.0/Hexodus-linux-x86_64.AppImage"
+    }
+  ],
+  "cover": {
+    "from": "#a78bfa",
+    "to": "#312e81",
+    "emoji": "\u2b21"
+  },
   "highlights": [
     "100 solver-verified Journey levels across eight chapters",
     "Locks and keys, frost that thaws from the edges, and arrows that turn with their neighbours",
@@ -24,9 +53,9 @@
   ],
   "howToPlay": [
     "Tap a tile: it escapes only if every hex on its arrow ray is empty.",
-    "A blocked tile shakes and the first blocker pulses — no penalty.",
+    "A blocked tile shakes and the first blocker pulses \u2014 no penalty.",
     "Keys open matching padlocks; frost thaws when neighbours leave."
   ],
-  "levels": "100 Journey levels · 8 chapters + daily, Zen and Classic",
+  "levels": "100 Journey levels \u00b7 8 chapters + daily, Zen and Classic",
   "saveKey": "hexodus-save-v1"
 }
