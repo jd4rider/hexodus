@@ -90,6 +90,6 @@ export default class SettingsScene extends Phaser.Scene {
       this.draw()
     }, { width: 380, height: 48, size: 16, fill: this.confirmReset ? 0xb91c1c : theme.dark ? 0x312e81 : 0xffffff, textColor: this.confirmReset ? '#ffffff' : theme.dark ? '#e0e7ff' : theme.text, theme })
 
-    text(this, W / 2, H - 88, 'Hexodus 0.1.0 · Little Joy Arcade', 13, theme.subtext, { alpha: 0.75 }).setOrigin(0.5)
+    text(this, W / 2, H - 88, 'Hexodus 0.1.1 · Little Joy Arcade', 13, theme.subtext, { alpha: 0.75 }).setOrigin(0.5)
   }
 }

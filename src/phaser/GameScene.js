@@ -164,6 +164,10 @@ export default class GameScene extends Phaser.Scene {
     const size = this.hexSize
     const pos = this.cellPosition(tile)
     const pod = this.add.container(pos.x, pos.y)
+    // Position animates on `pod`; the flip animates `visual`, so the two never
+    // fight over the same transform.
+    const visual = this.add.container(0, 0)
+    pod.add(visual)
     const points = hexPoints(size * 0.93)
     const color = theme.tile[(Math.abs(tile.q * 7 + tile.r * 13) + tile.id) % theme.tile.length]
 
@@ -187,17 +191,27 @@ export default class GameScene extends Phaser.Scene {
     arrow.setRotation(dirAngle(tile.dir))
 
     const overlay = this.add.graphics()
-    pod.add([shadow, face, arrow, overlay])
-    pod.setSize(size * 1.8, size * 1.8)
-    pod.setInteractive(new Phaser.Geom.Circle(0, 0, size * 1.02), Phaser.Geom.Circle.Contains)
-    pod.on('pointerover', () => {
+    visual.add([shadow, face, arrow, overlay])
+
+    // Input lives on its own scene-space zone whose hit area is the exact hex,
+    // in the zone's local coordinates (origin 0.5 puts the centre at size,size).
+    // Container hit areas are offset by Phaser's display origin, which is what
+    // made players tap above a tile.
+    const localHex = hexPoints(size * 0.97).map((p) => [p.x + size, p.y + size])
+    const hit = this.add
+      .zone(pos.x, pos.y, size * 2, size * 2)
+      .setOrigin(0.5)
+      .setDepth(20)
+      .setInteractive(new Phaser.Geom.Polygon(localHex), Phaser.Geom.Polygon.Contains)
+    hit.input.cursor = 'pointer'
+    hit.on('pointerover', () => {
       if (!this.busy && !this.over) pod.setScale(1.04)
     })
-    pod.on('pointerout', () => pod.setScale(1))
-    pod.on('pointerdown', () => this.tapTile(tile.id))
+    hit.on('pointerout', () => pod.setScale(1))
+    hit.on('pointerdown', () => this.tapTile(tile.id))
 
     this.boardLayer.add(pod)
-    this.pods.set(tile.id, { pod, arrow, overlay })
+    this.pods.set(tile.id, { pod, visual, arrow, overlay, hit })
     this.paintOverlay(tile.id)
     return pod
   }
@@ -311,9 +325,13 @@ export default class GameScene extends Phaser.Scene {
     const entry = this.pods.get(id)
     this.pods.delete(id)
     const container = entry?.pod
+    const visual = entry?.visual
+    entry?.hit?.destroy()
+
     const tile = this.state.tiles[id]
     const angle = dirAngle(tile.dir)
-    const distance = this.hexSize * 5
+    const distance = this.hexSize * 5.2
+    const spin = (tile.dir % 2 === 0 ? 1 : -1) * 150
 
     const finish = () => {
       container?.destroy()
@@ -321,24 +339,34 @@ export default class GameScene extends Phaser.Scene {
       if (isSolved(this.state) && !this.over) this.finish()
     }
 
-    if (!container) {
-      finish()
-      return
-    }
-    if (data.settings.reducedMotion) {
+    if (!container || !visual || data.settings.reducedMotion) {
       finish()
       return
     }
 
+    // 1. The tile lifts and turns edge-on, like a chit being flicked over.
     this.tweens.add({
-      targets: container,
-      x: container.x + Math.cos(angle) * distance,
-      y: container.y + Math.sin(angle) * distance,
-      alpha: 0,
-      scale: 0.72,
-      duration: 260,
-      ease: 'Cubic.In',
-      onComplete: finish,
+      targets: visual,
+      scaleY: 0.05,
+      scaleX: 1.07,
+      duration: 95,
+      ease: 'Quad.In',
+      onComplete: () => {
+        // 2. It snaps back to face-up while sailing away and spinning.
+        this.tweens.add({ targets: visual, scaleY: 1, scaleX: 1, duration: 130, ease: 'Quad.Out' })
+        this.tweens.add({
+          targets: container,
+          x: container.x + Math.cos(angle) * distance,
+          y: container.y + Math.sin(angle) * distance - this.hexSize * 0.25,
+          angle: spin,
+          alpha: 0,
+          scaleX: 0.6,
+          scaleY: 0.6,
+          duration: 320,
+          ease: 'Cubic.In',
+          onComplete: finish,
+        })
+      },
     })
   }
 
@@ -346,6 +374,15 @@ export default class GameScene extends Phaser.Scene {
     if (data.settings.reducedMotion) return
     const tile = this.state.tiles[id]
     const pos = this.cellPosition(tile)
+    const flash = this.add.circle(pos.x, pos.y, this.hexSize * 0.9, 0xffffff, 0.35).setDepth(3)
+    this.tweens.add({
+      targets: flash,
+      scale: 1.7,
+      alpha: 0,
+      duration: 260,
+      ease: 'Cubic.Out',
+      onComplete: () => flash.destroy(),
+    })
     for (let i = 0; i < 6; i += 1) {
       const angle = (Math.PI * 2 * i) / 6 + Math.random() * 0.4
       const mote = this.add.circle(pos.x, pos.y, this.hexSize * 0.11, 0xffffff, 0.9).setDepth(4)
@@ -437,6 +474,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   rebuild() {
+    for (const entry of this.pods.values()) entry.hit?.destroy()
     this.boardLayer?.destroy(true)
     this.pods = new Map()
     this.buildBoard()

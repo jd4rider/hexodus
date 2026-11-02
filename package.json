@@ -1,7 +1,7 @@
 {
   "name": "hexodus",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Hexodus — tap hexagonal tiles in the right order and let each one escape. A Little Joy Arcade game.",
   "author": "jd4rider",
   "type": "module",
