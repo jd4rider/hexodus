@@ -1,0 +1,32 @@
+{
+  "id": "hexodus",
+  "name": "Hexodus",
+  "tagline": "Clear every ray.",
+  "description": "A hexagonal escape puzzle: each tile carries an arrow, and it can only leave when every hex along that ray is empty. One hundred solver-verified Journey boards across eight chapters introduce keys, frost and rotating arrows, alongside a shared daily challenge, endless Zen and Classic stages. Every board is generated from a seed and checked solvable before it ships.",
+  "categories": ["Puzzle", "Logic", "Brain Training"],
+  "runtime": "Phaser 4",
+  "version": "0.1.0",
+  "updated": "2026-11-02",
+  "status": "live",
+  "featured": false,
+  "playUrl": "https://jd4rider.github.io/hexodus/play/",
+  "preferredPlayUrl": "https://hexodus.littlejoyarcade.site/play/",
+  "siteUrl": "https://jd4rider.github.io/hexodus/",
+  "repoUrl": "https://github.com/jd4rider/hexodus",
+  "releasesUrl": "https://github.com/jd4rider/hexodus/releases",
+  "downloads": [],
+  "cover": { "from": "#a78bfa", "to": "#312e81", "emoji": "⬡" },
+  "highlights": [
+    "100 solver-verified Journey levels across eight chapters",
+    "Locks and keys, frost that thaws from the edges, and arrows that turn with their neighbours",
+    "A daily board seeded from the UTC date, identical on every device",
+    "Undo, solver-backed hints, four themes and reduced-motion support"
+  ],
+  "howToPlay": [
+    "Tap a tile: it escapes only if every hex on its arrow ray is empty.",
+    "A blocked tile shakes and the first blocker pulses — no penalty.",
+    "Keys open matching padlocks; frost thaws when neighbours leave."
+  ],
+  "levels": "100 Journey levels · 8 chapters + daily, Zen and Classic",
+  "saveKey": "hexodus-save-v1"
+}
