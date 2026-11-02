@@ -9,7 +9,7 @@
     "Brain Training"
   ],
   "runtime": "Phaser 4",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "updated": "2026-11-02",
   "status": "live",
   "featured": false,
@@ -22,22 +22,22 @@
     {
       "label": "macOS (Apple Silicon)",
       "platform": "macOS",
-      "url": "https://github.com/jd4rider/hexodus/releases/download/v0.1.0/Hexodus-mac-arm64.dmg"
+      "url": "https://github.com/jd4rider/hexodus/releases/download/v0.1.1/Hexodus-mac-arm64.dmg"
     },
     {
       "label": "macOS (Intel)",
       "platform": "macOS",
-      "url": "https://github.com/jd4rider/hexodus/releases/download/v0.1.0/Hexodus-mac-x64.dmg"
+      "url": "https://github.com/jd4rider/hexodus/releases/download/v0.1.1/Hexodus-mac-x64.dmg"
     },
     {
       "label": "Windows installer",
       "platform": "Windows",
-      "url": "https://github.com/jd4rider/hexodus/releases/download/v0.1.0/Hexodus-win-setup.exe"
+      "url": "https://github.com/jd4rider/hexodus/releases/download/v0.1.1/Hexodus-win-setup.exe"
     },
     {
       "label": "Linux AppImage",
       "platform": "Linux",
-      "url": "https://github.com/jd4rider/hexodus/releases/download/v0.1.0/Hexodus-linux-x86_64.AppImage"
+      "url": "https://github.com/jd4rider/hexodus/releases/download/v0.1.1/Hexodus-linux-x86_64.AppImage"
     }
   ],
   "cover": {
