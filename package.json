@@ -29,6 +29,10 @@
   "build": {
     "appId": "com.jd4rider.hexodus",
     "productName": "Hexodus",
+    "publish": {
+      "provider": "github",
+      "releaseType": "release"
+    },
     "directories": {
       "output": "release",
       "buildResources": "build"
