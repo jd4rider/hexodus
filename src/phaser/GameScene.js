@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+import { openTipJar } from './support.js'
 import {
   W,
   H,
@@ -605,6 +606,17 @@ export default class GameScene extends Phaser.Scene {
         width: 180,
         height: 52,
         size: 17,
+        fill: theme.dark ? 0x312e81 : 0xffffff,
+        textColor: theme.dark ? '#e0e7ff' : theme.text,
+        theme,
+      }),
+    )
+    // Quiet support link: results panel only, under the actions inside the card.
+    layer.add(
+      button(this, W / 2, 730, '☕ Buy me a coffee', () => openTipJar(), {
+        width: 300,
+        height: 30,
+        size: 13,
         fill: theme.dark ? 0x312e81 : 0xffffff,
         textColor: theme.dark ? '#e0e7ff' : theme.text,
         theme,
